@@ -10,7 +10,7 @@
 #include<sstream>
 using namespace std;
 
-const char* vertexShaderSourceFilePath = "./deVert.vert";
+const char* vertexShaderSourceFilePath = "./transAndScale.vert";
 const char* fragmentShaderSourceFilePath = "./deFrag.frag";
 
 const char* vertexShaderSource;
