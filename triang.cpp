@@ -10,8 +10,8 @@
 #include<sstream>
 using namespace std;
 
-const char* vertexShaderSourceFilePath = "./rotate.vert";
-const char* fragmentShaderSourceFilePath = "./colorGrad.frag";
+const char* vertexShaderSourceFilePath = "./deVert.vert";
+const char* fragmentShaderSourceFilePath = "./deFrag.frag";
 
 const char* vertexShaderSource;
 //Fragment Shader source code
@@ -163,15 +163,6 @@ int main()
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-
-
-
-
-
-
-
-
 
 		// Draw the triangle using the GL_TRIANGLES primitive
 		glDrawArrays(GL_TRIANGLES, 0, 3);
