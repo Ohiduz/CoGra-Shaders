@@ -8,7 +8,7 @@ uniform mat4 projection;
 void main()
 {
     // Define the rotation angle in radians
-    float angle = radians(180.0f);
+    float angle = radians(69.0f);
     
     // Create rotation matrix around the Z-axis
     mat4 rotation = mat4(cos(angle), -sin(angle), 0.0, 0.0,
