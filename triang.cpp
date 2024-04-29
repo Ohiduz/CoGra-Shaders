@@ -1,11 +1,17 @@
 #include<iostream>
 #include<glad/glad.h>
+#include<glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include<GLFW/glfw3.h>
 #include<math.h>
 #include<string.h>
 #include<fstream>
 #include<sstream>
 using namespace std;
+
+const char* vertexShaderSourceFilePath = "./rotate.vert";
+const char* fragmentShaderSourceFilePath = "./colorGrad.frag";
 
 const char* vertexShaderSource;
 //Fragment Shader source code
@@ -58,11 +64,11 @@ int main()
 	glViewport(0, 0, 800, 800);
 
 
-	string tmpvss = readShaderFile("./vss.vert");
+	string tmpvss = readShaderFile(vertexShaderSourceFilePath);
 	vertexShaderSource = tmpvss.c_str();
-	string tmpfss = readShaderFile("./fss.frag");
+	string tmpfss = readShaderFile(fragmentShaderSourceFilePath);
 	fragmentShaderSource = tmpfss.c_str();
-	
+
 
 	// Create Vertex Shader Object and get its reference
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -137,6 +143,36 @@ int main()
 		glUseProgram(shaderProgram);
 		// Bind the VAO so OpenGL knows to use it
 		glBindVertexArray(VAO);
+
+
+
+
+
+
+		// Set transformation matrices...
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 2.0f, 100.0f);
+        
+        // Get uniform locations...
+        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+        GLint viewLoc = glGetUniformLocation(shaderProgram, "view");
+        GLint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+        
+        // Set uniform values...
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+
+
+
+
+
+
+
+
 		// Draw the triangle using the GL_TRIANGLES primitive
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		// Swap the back buffer with the front buffer
