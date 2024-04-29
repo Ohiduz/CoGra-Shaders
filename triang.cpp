@@ -2,23 +2,29 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<math.h>
+#include<string.h>
+#include<fstream>
+#include<sstream>
+using namespace std;
 
-// Vertex Shader source code
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
+const char* vertexShaderSource;
 //Fragment Shader source code
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
-"}\n\0";
+const char* fragmentShaderSource;
 
 
+std::string readShaderFile(const char* filePath) {
+    std::ifstream shaderFile(filePath);
+    if (!shaderFile.is_open()) {
+        std::cerr << "Failed to open shader file: " << filePath << std::endl;
+        return "";
+    }
+
+    std::stringstream shaderStream;
+    shaderStream << shaderFile.rdbuf();
+    shaderFile.close();
+
+    return shaderStream.str();
+}
 
 int main()
 {
@@ -52,6 +58,11 @@ int main()
 	glViewport(0, 0, 800, 800);
 
 
+	string tmpvss = readShaderFile("./vss.vert");
+	vertexShaderSource = tmpvss.c_str();
+	string tmpfss = readShaderFile("./fss.frag");
+	fragmentShaderSource = tmpfss.c_str();
+	
 
 	// Create Vertex Shader Object and get its reference
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
