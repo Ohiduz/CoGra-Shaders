@@ -8,63 +8,17 @@
 #include<string.h>
 #include<fstream>
 #include<sstream>
-
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 using namespace std;
 
-const char* vertexShaderSource = R"(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    layout (location = 1) in vec3 aNormal;
+const char* vertexShaderSourceFilePath = "./lighting.vert";
+const char* fragmentShaderSourceFilePath = "./lighting.frag";
 
-    out vec3 FragPos;
-    out vec3 Normal;
+const char* vertexShaderSource;
+//Fragment Shader source code
+const char* fragmentShaderSource;
 
-    uniform mat4 projection;
-    uniform mat4 view;
-    uniform mat4 model;
-
-    void main()
-    {
-        gl_Position = projection * view * model * vec4(aPos, 1.0);
-        FragPos = vec3(model * vec4(aPos, 1.0));
-        Normal = mat3(transpose(inverse(model))) * aNormal;
-    }
-)";
-
-const char* fragmentShaderSource = R"(
-    #version 330 core
-    out vec4 FragColor;
-
-    in vec3 Normal;
-    in vec3 FragPos;
-
-    uniform vec3 lightPos;
-    uniform vec3 lightColor;
-    uniform vec3 objectColor;
-
-    void main()
-    {
-        // Ambient
-        float ambientStrength = 0.1;
-        vec3 ambient = ambientStrength * lightColor;
-
-        // Diffuse
-        vec3 norm = normalize(Normal);
-        vec3 lightDir = normalize(lightPos - FragPos);
-        float diff = max(dot(norm, lightDir), 0.0);
-        vec3 diffuse = diff * lightColor;
-
-        // Specular
-        float specularStrength = 0.5;
-        vec3 viewDir = normalize(-FragPos);
-        vec3 reflectDir = reflect(-lightDir, norm);  
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-        vec3 specular = specularStrength * spec * lightColor;  
-
-        vec3 result = (ambient + diffuse + specular) * objectColor;
-        FragColor = vec4(result, 1.0);
-    }
-)";
 
 std::string readShaderFile(const char* filePath) {
     std::ifstream shaderFile(filePath);
@@ -110,6 +64,13 @@ int main()
     // Specify the viewport of OpenGL in the Window
     // In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
     glViewport(0, 0, 800, 800);
+
+
+    string tmpvss = readShaderFile(vertexShaderSourceFilePath);
+    vertexShaderSource = tmpvss.c_str();
+    string tmpfss = readShaderFile(fragmentShaderSourceFilePath);
+    fragmentShaderSource = tmpfss.c_str();
+
 
     // Create Vertex Shader Object and get its reference
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
