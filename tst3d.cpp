@@ -12,13 +12,17 @@
 #include "stb_image.h"
 using namespace std;
 
+<<<<<<< HEAD
 const char* vertexShaderSourceFilePath = "./lighting.vert";
 const char* fragmentShaderSourceFilePath = "./lighting.frag";
+=======
+const char* vertexShaderSourceFilePath = "./colorChange.vert";
+const char* fragmentShaderSourceFilePath = "./colorChange.frag";
+>>>>>>> db6e2f39219fd75254d8eb4a073b57465adf0f92
 
 const char* vertexShaderSource;
 //Fragment Shader source code
 const char* fragmentShaderSource;
-const int height=875, width=1400;
 
 
 std::string readShaderFile(const char* filePath) {
@@ -49,7 +53,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-    GLFWwindow* window = glfwCreateWindow(width, height, "YoutubeOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
     // Error check if the window fails to create
     if (window == NULL)
     {
@@ -64,7 +68,7 @@ int main()
     gladLoadGL();
     // Specify the viewport of OpenGL in the Window
     // In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, 800, 800);
 
 
     string tmpvss = readShaderFile(vertexShaderSourceFilePath);
@@ -101,39 +105,38 @@ int main()
 
 
     float vertices[] = {
-        // positions            // texture coords
+        // positions        // texture coords
         // Front face
-        -0.7f, -0.7f,  0.7f,    0.0f, 0.0f, // bottom-left
-        0.7f, -0.7f,  0.7f,    1.0f, 0.0f, // bottom-right    
-        0.7f,  0.7f,  0.7f,    1.0f, 1.0f, // top-right              
-        -0.7f,  0.7f,  0.7f,    0.0f, 1.0f, // top-left 
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right    
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right              
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // top-left 
         // Back face
-        -0.7f, -0.7f, -0.7f,    1.0f, 0.0f, // bottom-right
-        0.7f, -0.7f, -0.7f,    0.0f, 0.0f, // bottom-left
-        0.7f,  0.7f, -0.7f,    0.0f, 1.0f, // top-left     
-        -0.7f,  0.7f, -0.7f,    1.0f, 1.0f, // top-right        
+        -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right
+         0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left
+         0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left     
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right        
         // Top face
-        0.7f,  0.7f,  0.7f,    1.0f, 0.0f, // bottom-right
-        -0.7f,  0.7f,  0.7f,    0.0f, 0.0f, // bottom-left       
-        -0.7f,  0.7f, -0.7f,    0.0f, 1.0f, // top-left     
-        0.7f,  0.7f, -0.7f,    1.0f, 1.0f, // top-right                
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, // bottom-left       
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left     
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right                
         // Bottom face
-        -0.7f, -0.7f,  0.7f,    1.0f, 0.0f, // top-right
-        0.7f, -0.7f,  0.7f,    0.0f, 0.0f, // top-left     
-        0.7f, -0.7f, -0.7f,    0.0f, 1.0f, // bottom-left        
-        -0.7f, -0.7f, -0.7f,    1.0f, 1.0f, // bottom-right        
+        -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // top-right
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // top-left     
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left        
+        -0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // bottom-right        
         // Right face
-        0.7f, -0.7f,  0.7f,    1.0f, 0.0f, // bottom-right
-        0.7f,  0.7f,  0.7f,    0.0f, 0.0f, // top-right        
-        0.7f,  0.7f, -0.7f,    0.0f, 1.0f, // top-left                
-        0.7f, -0.7f, -0.7f,    1.0f, 1.0f, // bottom-left        
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+         0.5f,  0.5f,  0.5f,  0.0f, 0.0f, // top-right        
+         0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left                
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // bottom-left        
         // Left face
-        -0.7f, -0.7f,  0.7f,    0.0f, 0.0f, // bottom-left
-        -0.7f,  0.7f,  0.7f,    1.0f, 0.0f, // top-left        
-        -0.7f,  0.7f, -0.7f,    1.0f, 1.0f, // top-right                
-        -0.7f, -0.7f, -0.7f,    0.0f, 1.0f  // bottom-right
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left        
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right                
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f  // bottom-right
     };
-
 
     unsigned int indices[] = {
         0,  1,  2,  2,  3,  0, // Front face
@@ -179,7 +182,11 @@ int main()
     // Load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // Flip texture vertically to match OpenGL's coordinate system
+<<<<<<< HEAD
     unsigned char* data = stbi_load("cf2.jpg", &width, &height, &nrChannels, 0);
+=======
+    unsigned char* data = stbi_load("table.jpg", &width, &height, &nrChannels, 0);
+>>>>>>> db6e2f39219fd75254d8eb4a073b57465adf0f92
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -193,7 +200,7 @@ int main()
 
     glm::mat4 model = glm::mat4(1.0f); // Initialize model matrix as identity matrix
     // Projection matrix
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 800.0f, 0.1f, 100.0f);
     // View matrix
     glm::mat4 view = glm::lookAt(glm::vec3(3.0f, 2.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 

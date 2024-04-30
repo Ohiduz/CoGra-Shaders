@@ -12,10 +12,10 @@ uniform mat4 projection; // Projection matrix
 void main()
 {
     // Define the rotation axis (normalized)
-    vec3 axis = normalize(vec3(1.0, 0.0, 0.0)); // Example: arbitrary axis
+    vec3 axis = normalize(vec3(0.0, 0.0, 1.0)); // Example: arbitrary axis
     
     // Define the rotation angle in radians
-    float angle = radians(0.0f);
+    float angle = radians(15.0f);
     
     // Compute sine and cosine of the angle
     float c = cos(angle);
