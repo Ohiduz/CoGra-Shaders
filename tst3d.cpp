@@ -12,7 +12,7 @@
 #include "stb_image.h"
 using namespace std;
 
-const char* vertexShaderSourceFilePath = "./projection.vert";
+const char* vertexShaderSourceFilePath = "./transRotAndScale.vert";
 const char* fragmentShaderSourceFilePath = "./projection.frag";
 
 const char* vertexShaderSource;
@@ -177,7 +177,7 @@ int main()
     // Load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // Flip texture vertically to match OpenGL's coordinate system
-    unsigned char* data = stbi_load("blutec.jpg", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("nic.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -189,18 +189,19 @@ int main()
     }
     stbi_image_free(data);
 
+    glm::mat4 model = glm::mat4(1.0f); // Initialize model matrix as identity matrix
     // Projection matrix
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 800.0f, 0.1f, 100.0f);
     // View matrix
-    glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 view = glm::lookAt(glm::vec3(3.0f, 2.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
+
+    unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
 
     unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
     // Set the view matrix uniform
     unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -220,6 +221,12 @@ int main()
 
         // Use shader program
         glUseProgram(shaderProgram);
+
+
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
 
         // Bind vertex array
         glBindVertexArray(VAO);
