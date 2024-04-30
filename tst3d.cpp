@@ -12,8 +12,8 @@
 #include "stb_image.h"
 using namespace std;
 
-const char* vertexShaderSourceFilePath = "./lighting.vert";
-const char* fragmentShaderSourceFilePath = "./lighting.frag";
+const char* vertexShaderSourceFilePath = "./colorChange.vert";
+const char* fragmentShaderSourceFilePath = "./colorChange.frag";
 
 const char* vertexShaderSource;
 //Fragment Shader source code

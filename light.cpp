@@ -199,7 +199,7 @@ int main()
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
         glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
-        glUniform3f(objectColorLoc, 0.5f, 0.5f, 0.5f); // Set object color to gray
+        glUniform3f(objectColorLoc, 0.4f, 0.8f, 1.0f); // Set object color to gray
 
         // Bind vertex array
         glBindVertexArray(VAO);
