@@ -12,13 +12,8 @@
 #include "stb_image.h"
 using namespace std;
 
-<<<<<<< HEAD
 const char* vertexShaderSourceFilePath = "./lighting.vert";
 const char* fragmentShaderSourceFilePath = "./lighting.frag";
-=======
-const char* vertexShaderSourceFilePath = "./colorChange.vert";
-const char* fragmentShaderSourceFilePath = "./colorChange.frag";
->>>>>>> db6e2f39219fd75254d8eb4a073b57465adf0f92
 
 const char* vertexShaderSource;
 //Fragment Shader source code
@@ -182,11 +177,7 @@ int main()
     // Load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // Flip texture vertically to match OpenGL's coordinate system
-<<<<<<< HEAD
     unsigned char* data = stbi_load("cf2.jpg", &width, &height, &nrChannels, 0);
-=======
-    unsigned char* data = stbi_load("table.jpg", &width, &height, &nrChannels, 0);
->>>>>>> db6e2f39219fd75254d8eb4a073b57465adf0f92
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
