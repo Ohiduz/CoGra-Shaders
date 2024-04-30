@@ -9,7 +9,16 @@ uniform mat4 projection; // Projection matrix
 void main()
 {
     
+    // Define the rotation angle in radians
+    float angle = radians(69.0f);
     
+    // Create rotation matrix around the Z-axis
+    mat4 rotation = mat4(cos(angle), -sin(angle), 0.0, 0.0,
+                         sin(angle),  cos(angle), 0.0, 0.0,
+                         0.0,          0.0,         1.0, 0.0,
+                         0.0,          0.0,         0.0, 1.0);
+
+
     // Define scaling factors
     vec3 scale = vec3(1.5, 0.5, 0.5);
     
@@ -28,5 +37,5 @@ void main()
     transform[3] = vec4(translation, 1.0);
 
     
-    gl_Position = transform * vec4(aPos, 1.0);
+    gl_Position = rotation*transform * vec4(aPos, 1.0);
 }

@@ -12,7 +12,7 @@
 #include "stb_image.h"
 using namespace std;
 
-const char* vertexShaderSourceFilePath = "./rotate.vert";
+const char* vertexShaderSourceFilePath = "./transAndScale.vert";
 const char* fragmentShaderSourceFilePath = "./deFrag.frag";
 
 const char* vertexShaderSource;
